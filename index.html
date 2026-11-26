@@ -266,7 +266,7 @@ const ic=(n,s)=>{const i=ICONS[n];if(!i)return '';const sz=s?` width="${s}" heig
 /* ================= i18n ================= */
 const I18N={
 en:{
-title:'WOLF',checkedPlayers:'Players you have checked',cueSounds:'Night wake-up sounds',yourPack:'Your pack',testVibBtn:'Test vibration',vibTried:'Buzzing now! If you felt nothing, check that your phone is not on silent or battery saver.',theWolves:'The wolves',bedTextCompadre:'Compadre: these are the wolves. Remember their faces, then tap the button and close your eyes.',bedTitle:'Go to bed',bedText:'Time for bed. Tap the button, then close your eyes.',bedTextCharro:'Charro: pick who goes down with you if you die. You must choose before the timer runs out, then tap the button.',bedBtn:'Go to bed – close your eyes',bedWait:'Sleep well…',closeIn:'Close your eyes in {0}',fxSounds:'Wolf and gunshot sounds',makeCard:'Make your card',pickColor:'Card color',done:'Done',rooster:'Rooster at dawn',tapCard:'Tap your card to pick your icon and color',fillsRest:'fills the rest',onlyOne:'One Night only',onlyClassic:'Classic only',rule_minion_c:'You never wake up at night. Before every night your phone shows you a grid of all players with the wolves\' cards face-up, and the wolf cards stay marked on the voting grid. They do not see you. Cover for them, compadre!',win_r_minion_c:'You win when the wolves win, even if you are eliminated.',rule_tanner_c:'No night action. Life on the ranch is hard – you only win if the ranch votes YOU out. The wolves killing you does not count!',win_r_tanner_c:'You win alone if the ranch eliminates you by vote.',pickIcon:'Pick your icon',yourIcon:'Your icon',wolvesN:'Wolves',auto:'Auto',rolesOpt:'Roles to include',tapRoleHint:'Tap a role to include it or leave it out.',inThisGame:'In this game',closeNow:'CLOSE YOUR EYES NOW',testVibRoles:"Test my phone's vibration",loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
+title:'WOLF',checkedPlayers:'Players you have checked',cueSounds:'Night wake-up sounds',yourPack:'Your pack',testVibBtn:'Test vibration',vibTried:'Buzzing now! If you felt nothing, check that your phone is not on silent or battery saver.',theWolves:'The wolves',bedTextCompadre:'Compadre: these are the wolves. Remember their faces, then tap the button and close your eyes.',bedTitle:'Go to bed',bedText:'Time for bed. Tap the button, then close your eyes.',bedText_hunter:'Charro: pick who goes down with you if you die. You must choose before the timer runs out, then tap the button.',bedText_healer:'Curandera: pick who to protect from the wolves tonight (you can pick yourself), then tap the button.',bedText_seer:'Adivina: pick a player to check, then tap the button. Their card will flip to show their role.',bedBtn:'Go to bed – close your eyes',bedWait:'Sleep well…',closeIn:'Close your eyes in {0}',fxSounds:'Wolf and gunshot sounds',makeCard:'Make your card',pickColor:'Card color',done:'Done',rooster:'Rooster at dawn',tapCard:'Tap your card to pick your icon and color',fillsRest:'fills the rest',onlyOne:'One Night only',onlyClassic:'Classic only',rule_minion_c:'You never wake up at night. Before every night your phone shows you a grid of all players with the wolves\' cards face-up, and the wolf cards stay marked on the voting grid. They do not see you. Cover for them, compadre!',win_r_minion_c:'You win when the wolves win, even if you are eliminated.',rule_tanner_c:'No night action. Life on the ranch is hard – you only win if the ranch votes YOU out. The wolves killing you does not count!',win_r_tanner_c:'You win alone if the ranch eliminates you by vote.',pickIcon:'Pick your icon',yourIcon:'Your icon',wolvesN:'Wolves',auto:'Auto',rolesOpt:'Roles to include',tapRoleHint:'Tap a role to include it or leave it out.',inThisGame:'In this game',closeNow:'CLOSE YOUR EYES NOW',testVibRoles:"Test my phone's vibration",loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
 yourName:'Your name',namePH:'Enter your name',needName:'Please enter your name.',
 create:'Open a ranch',join:'Join a ranch',roomCode:'Ranch code',joinBtn:'Enter the ranch',howTo:'How to play',back:'Back',
 settings:'Settings',language:'Language',vibration:'Vibration',sound:'Sounds',keepAwake:'Keep screen on',test:'Test',
@@ -320,15 +320,15 @@ hunterShot:'{0} the Charro takes down {1}!',votesN:'{0} votes',alive:'alive',dea
 win_village:'The Ranch wins',win_wolf:'The Wolves win',win_tanner:'The Lost Soul wins',
 center:'Center cards',playAgain:'Ride again',waitAgain:'Waiting for the host…',
 howTitle:'How to play',howClassic:'Classic mode',howOne:'One Night mode',
-howC:['Everyone secretly gets a role. Some are wolves hiding among the ranch folk.','Each night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes and tells you. The wolves vote on a victim, the Curandera may protect someone, the Adivina checks a suspect.','At dawn, the ranch learns who died. Then everyone talks, accuses and bluffs.','Everyone votes. The player with the most votes is eliminated and their role is revealed. A tie triggers a runoff: only the tied players can be voted for.','The <b>ranch folk</b> win when every wolf is gone. The <b>wolves</b> win when they equal the ranch folk.'],
+howC:['Everyone secretly gets a role. Some are wolves hiding among the ranch folk.','Every night starts with a 10-second <b>"Go to bed"</b> countdown. Everyone taps the button, while the Charro, Curandera and Adivina secretly pick someone on their phone. Then <b>only the wolves</b> open their eyes (their phones buzz) and vote on a victim.','At dawn, the ranch learns who died. Then everyone talks, accuses and bluffs.','Everyone votes. The player with the most votes is eliminated and their role is revealed. A tie triggers a runoff: only the tied players can be voted for.','The <b>ranch folk</b> win when every wolf is gone. The <b>wolves</b> win when they equal the ranch folk.'],
 howO:['Everyone gets a role card and 3 more lie face-down in the middle.','At night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes. Some roles swap cards, so you may end up as something else!','Nobody dies at night. Talk it out, then everyone votes. A tie means a runoff between the tied players.','The <b>ranch folk</b> win if a wolf is eliminated. The <b>wolves</b> win if not. The <b>Lost Soul</b> wins only by dying.'],
 role_wolf:'Lobo',role_minion:'Compadre',role_seer:'Adivina',role_healer:'Curandera',role_robber:'Bandido',role_troublemaker:'Chismoso',role_drunk:'Borracho',role_insomniac:'Desvelado',role_hunter:'Charro',role_tanner:'Alma en Pena',role_villager:'Ranchero',
 rule_wolf:'At night you wake up and see the other wolves. A lone wolf may secretly peek at one center card. Blend in with the ranch folk by day!',
 rule_wolf_c:'Every night the wolves wake up, see each other and vote on who to devour. By day, act like honest ranch folk.',
 rule_minion:'At night you see who the wolves are. They do not see you. Cover for them, compadre!',
 rule_seer:"At night you may look at ONE other player's card, or at TWO center cards.",
-rule_seer_c:'Every night, point at one player and learn whether they are a wolf or not.',
-rule_healer_c:'Every night, choose one player to protect from the wolves (yourself included). If the wolves picked them, they live.',
+rule_seer_c:'You never wake up at night. During the 10-second "Go to bed" countdown you pick a player and tap the button: their card flips to show you their role for a few seconds. Checked players stay face-up on your voting grid.',
+rule_healer_c:'You never wake up at night. During the 10-second "Go to bed" countdown you pick one player to protect from the wolves (yourself included) and tap the button. If the wolves picked them, they live.',
 rule_robber:"At night you may swap your card with another player's and look at your new card. You are now that role!",
 rule_troublemaker:'At night you swap the cards of TWO other players, without looking at them. Stir the pot!',
 rule_drunk:'At night you swap your card with a center card without looking. After all that tequila you no longer know what you are!',
@@ -349,7 +349,7 @@ win_r_tanner:'You win only if you are eliminated.',win_r_villager:'You win if a 
 phaseRoles:'Roles are being dealt…'
 },
 es:{
-title:'LOBO',checkedPlayers:'Jugadores que has revisado',cueSounds:'Sonidos de la noche',yourPack:'Tu manada',testVibBtn:'Probar vibración',vibTried:'¡Vibrando! Si no sentiste nada, revisa que tu teléfono no esté en silencio ni en ahorro de batería.',theWolves:'Los lobos',bedTextCompadre:'Compadre: estos son los lobos. Recuerda sus caras, luego toca el botón y cierra los ojos.',bedTitle:'A dormir',bedText:'Hora de dormir. Toca el botón y cierra los ojos.',bedTextCharro:'Charro: elige quién se va contigo si mueres. Debes elegir antes de que acabe el tiempo y luego tocar el botón.',bedBtn:'A dormir – cierra los ojos',bedWait:'Que duermas bien…',closeIn:'Cierra los ojos en {0}',fxSounds:'Sonidos de lobo y disparos',makeCard:'Arma tu carta',pickColor:'Color de tu carta',done:'Listo',rooster:'Gallo al amanecer',tapCard:'Toca tu carta para elegir tu ícono y color',fillsRest:'rellena el resto',onlyOne:'solo Una Noche',onlyClassic:'solo Clásico',rule_minion_c:'Nunca despiertas de noche. Antes de cada noche tu teléfono te muestra todos los jugadores con las cartas de los lobos boca arriba, y las cartas de lobo siguen marcadas en la votación. Ellos no te ven. ¡Cúbreles las espaldas, compadre!',win_r_minion_c:'Ganas cuando ganan los lobos, aunque te eliminen.',rule_tanner_c:'Sin acción nocturna. La vida en el rancho es dura – solo ganas si el rancho vota por TI. ¡Que te maten los lobos no cuenta!',win_r_tanner_c:'Ganas solo si el rancho te elimina por votación.',pickIcon:'Elige tu ícono',yourIcon:'Tu ícono',wolvesN:'Lobos',auto:'Auto',rolesOpt:'Roles a incluir',tapRoleHint:'Toca un rol para incluirlo o dejarlo fuera.',inThisGame:'En esta partida',closeNow:'CIERRA LOS OJOS YA',testVibRoles:'Probar la vibración de mi teléfono',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
+title:'LOBO',checkedPlayers:'Jugadores que has revisado',cueSounds:'Sonidos de la noche',yourPack:'Tu manada',testVibBtn:'Probar vibración',vibTried:'¡Vibrando! Si no sentiste nada, revisa que tu teléfono no esté en silencio ni en ahorro de batería.',theWolves:'Los lobos',bedTextCompadre:'Compadre: estos son los lobos. Recuerda sus caras, luego toca el botón y cierra los ojos.',bedTitle:'A dormir',bedText:'Hora de dormir. Toca el botón y cierra los ojos.',bedText_hunter:'Charro: elige quién se va contigo si mueres. Debes elegir antes de que acabe el tiempo y luego tocar el botón.',bedText_healer:'Curandera: elige a quién proteger de los lobos esta noche (puedes elegirte), luego toca el botón.',bedText_seer:'Adivina: elige a un jugador para revisar y toca el botón. Su carta se voltea y muestra su rol.',bedBtn:'A dormir – cierra los ojos',bedWait:'Que duermas bien…',closeIn:'Cierra los ojos en {0}',fxSounds:'Sonidos de lobo y disparos',makeCard:'Arma tu carta',pickColor:'Color de tu carta',done:'Listo',rooster:'Gallo al amanecer',tapCard:'Toca tu carta para elegir tu ícono y color',fillsRest:'rellena el resto',onlyOne:'solo Una Noche',onlyClassic:'solo Clásico',rule_minion_c:'Nunca despiertas de noche. Antes de cada noche tu teléfono te muestra todos los jugadores con las cartas de los lobos boca arriba, y las cartas de lobo siguen marcadas en la votación. Ellos no te ven. ¡Cúbreles las espaldas, compadre!',win_r_minion_c:'Ganas cuando ganan los lobos, aunque te eliminen.',rule_tanner_c:'Sin acción nocturna. La vida en el rancho es dura – solo ganas si el rancho vota por TI. ¡Que te maten los lobos no cuenta!',win_r_tanner_c:'Ganas solo si el rancho te elimina por votación.',pickIcon:'Elige tu ícono',yourIcon:'Tu ícono',wolvesN:'Lobos',auto:'Auto',rolesOpt:'Roles a incluir',tapRoleHint:'Toca un rol para incluirlo o dejarlo fuera.',inThisGame:'En esta partida',closeNow:'CIERRA LOS OJOS YA',testVibRoles:'Probar la vibración de mi teléfono',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
 yourName:'Tu nombre',namePH:'Escribe tu nombre',needName:'Por favor escribe tu nombre.',
 create:'Abrir un rancho',join:'Entrar a un rancho',roomCode:'Código del rancho',joinBtn:'Entrar al rancho',howTo:'Cómo jugar',back:'Atrás',
 settings:'Ajustes',language:'Idioma',vibration:'Vibración',sound:'Sonidos',keepAwake:'Mantener pantalla encendida',test:'Probar',
@@ -403,15 +403,15 @@ hunterShot:'¡{0} el Charro se lleva a {1}!',votesN:'{0} votos',alive:'vivo',dea
 win_village:'Gana el Rancho',win_wolf:'Ganan los Lobos',win_tanner:'Gana el Alma Perdida',
 center:'Cartas del centro',playAgain:'Otra vez',waitAgain:'Esperando al anfitrión…',
 howTitle:'Cómo jugar',howClassic:'Modo Clásico',howOne:'Modo Una Noche',
-howC:['Todos reciben un rol en secreto. Algunos son lobos escondidos entre la gente del rancho.','Cada noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra y te avisa. Los lobos votan a su víctima, la Curandera puede proteger a alguien y la Adivina revisa a un sospechoso.','Al amanecer, el rancho sabe quién murió. Luego todos platican, acusan y mienten.','Todos votan. El más votado es eliminado y se revela su rol. Si hay empate, hay segunda vuelta: solo se puede votar a los empatados.','La <b>gente del rancho</b> gana cuando no queda ningún lobo. Los <b>lobos</b> ganan cuando igualan a la gente del rancho.'],
+howC:['Todos reciben un rol en secreto. Algunos son lobos escondidos entre la gente del rancho.','Cada noche empieza con 10 segundos de <b>"A dormir"</b>. Todos tocan el botón, mientras el Charro, la Curandera y la Adivina eligen a alguien en secreto en su teléfono. Luego <b>solo los lobos</b> abren los ojos (sus teléfonos vibran) y votan a su víctima.','Al amanecer, el rancho sabe quién murió. Luego todos platican, acusan y mienten.','Todos votan. El más votado es eliminado y se revela su rol. Si hay empate, hay segunda vuelta: solo se puede votar a los empatados.','La <b>gente del rancho</b> gana cuando no queda ningún lobo. Los <b>lobos</b> ganan cuando igualan a la gente del rancho.'],
 howO:['Todos reciben una carta de rol y otras 3 quedan boca abajo en el centro.','De noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra. Algunos roles intercambian cartas, ¡así que puedes terminar siendo otra cosa!','Nadie muere de noche. Platiquen y luego todos votan. Si hay empate, segunda vuelta entre los empatados.','La <b>gente del rancho</b> gana si se elimina a un lobo. Los <b>lobos</b> ganan si no. El <b>Alma Perdida</b> solo gana si muere.'],
 role_wolf:'Lobo',role_minion:'Compadre',role_seer:'Adivina',role_healer:'Curandera',role_robber:'Bandido',role_troublemaker:'Chismoso',role_drunk:'Borracho',role_insomniac:'Desvelado',role_hunter:'Charro',role_tanner:'Alma en Pena',role_villager:'Ranchero',
 rule_wolf:'De noche despiertas y ves a los otros lobos. Un lobo solitario puede mirar en secreto una carta del centro. ¡Disimula de día entre la gente del rancho!',
 rule_wolf_c:'Cada noche los lobos despiertan, se ven y votan a quién devorar. De día, haz como que eres gente honrada del rancho.',
 rule_minion:'De noche ves quiénes son los lobos. Ellos no te ven. ¡Cúbreles las espaldas, compadre!',
 rule_seer:'De noche puedes mirar la carta de UN otro jugador, o DOS cartas del centro.',
-rule_seer_c:'Cada noche, señala a un jugador y averigua si es lobo o no.',
-rule_healer_c:'Cada noche, elige a un jugador para protegerlo de los lobos (puedes elegirte a ti). Si los lobos lo eligieron, se salva.',
+rule_seer_c:'Nunca despiertas de noche. Durante los 10 segundos de "A dormir" eliges a un jugador y tocas el botón: su carta se voltea y te muestra su rol unos segundos. Los jugadores revisados quedan boca arriba en tu votación.',
+rule_healer_c:'Nunca despiertas de noche. Durante los 10 segundos de "A dormir" eliges a un jugador para protegerlo de los lobos (puedes elegirte) y tocas el botón. Si los lobos lo eligieron, se salva.',
 rule_robber:'De noche puedes intercambiar tu carta con la de otro jugador y mirar tu nueva carta. ¡Ahora eres ese rol!',
 rule_troublemaker:'De noche intercambias las cartas de DOS otros jugadores, sin mirarlas. ¡A meter cizaña!',
 rule_drunk:'De noche intercambias tu carta con una del centro sin mirar. ¡Con tanto tequila ya no sabes qué eres!',
@@ -571,7 +571,7 @@ function onMsg(m){
 
 /* ================= host: authoritative game ================= */
 const clean=s=>String(s||'').replace(/[<>]/g,'').trim().slice(0,14);
-const CLASSIC_NIGHT=['wolf','healer','seer'];
+const CLASSIC_NIGHT=['wolf'];
 const dur=r=>Math.round((G.mode==='classic'?DURC[r]:DUR[r])*SPEED);
 const sp=ms=>Math.round(ms*SPEED);
 function deckClassic(n){
@@ -648,7 +648,7 @@ function viewFor(pid){
   if(G.phase==='vote'){v.remaining=left(G.vote.endsAt);v.myVote=me.vote;v.vote={cands:G.vote.cands,runoff:G.vote.runoff}}
   if(G.phase==='verdict'){v.remaining=left(G.verdict.endsAt);v.verdict=G.verdict}
   if(G.phase==='shot'){v.remaining=left(G.shot.endsAt);v.shot={id:G.shot.id}}
-  if(G.phase==='bed'){v.remaining=left(G.bed.endsAt);v.bed={pick:me.bedPick||null,go:!!me.bedGo,hunter:me.orig==='hunter'&&me.alive!==false,minion:me.orig==='minion'&&me.alive!==false}}
+  if(G.phase==='bed'){v.remaining=left(G.bed.endsAt);v.bed={pick:me.bedPick||null,go:!!me.bedGo,picker:['hunter','healer','seer'].includes(me.orig)&&me.alive!==false?me.orig:null,minion:me.orig==='minion'&&me.alive!==false}}
   if(G.phase==='result')v.result=G.result;
   return v;
 }
@@ -702,8 +702,9 @@ function hostRecv(c,m){
     case 'vote':{const q=G.players.find(x=>x.id===m.target);
       if(G.phase==='vote'&&p.alive&&q&&q.alive&&m.target!==pid&&p.vote==null&&(!G.vote.cands||G.vote.cands.includes(m.target)))p.vote=m.target;break}
     case 'shot':if(G.phase==='shot'&&G.shot.id===pid)resolveShot(m.target);break;
-    case 'bedpick':{const q=G.players.find(x=>x.id===m.target);if(G.phase==='bed'&&p.alive&&p.orig==='hunter'&&q&&q.alive&&q.id!==pid)p.bedPick=q.id;break}
-    case 'bedgo':if(G.phase==='bed'&&p.alive)p.bedGo=true;break;
+    case 'bedpick':{const q=G.players.find(x=>x.id===m.target);
+      if(G.phase==='bed'&&p.alive&&!p.bedGo&&['hunter','healer','seer'].includes(p.orig)&&q&&q.alive&&(q.id!==pid||p.orig==='healer'))p.bedPick=q.id;break}
+    case 'bedgo':if(G.phase==='bed'&&p.alive){p.bedGo=true;if(p.orig==='seer'&&p.bedPick)seerCheck(p)}break;
     case 'again':if(isH&&G.phase==='result')resetToLobby();break;
     case 'leave':
       if(G.phase==='lobby'&&!isH)G.players=G.players.filter(x=>x!==p);
@@ -724,13 +725,24 @@ function startGame(){
   G.result=null;G.round=1;G.dawn=null;G.news=[];G.verdict=null;G.shot=null;G.hunterPending=null;G.tannerWin=false;G.phase='roles';
 }
 function startBed(){
-  G.phase='bed';G.bed={endsAt:Date.now()+sp(10000)};G.players.forEach(p=>{p.bedGo=false;p.bedPick=null});
+  G.phase='bed';G.bed={endsAt:Date.now()+sp(10000)};G.players.forEach(p=>{p.bedGo=false;p.bedPick=null;p.checked=false});
   setTimer(endBed,sp(10000));hostBroadcast();
+}
+function persistNote(pid,n){(G.notes[pid]=G.notes[pid]||[]).push(n)}
+function seerCheck(sr){
+  const q=G.players.find(x=>x.id===sr.bedPick);if(!q||sr.checked)return;
+  sr.checked=true;persistNote(sr.id,{k:'seerW',id:q.id,wolf:q.orig==='wolf',role:q.orig});
 }
 function endBed(){
   if(!G||G.phase!=='bed')return;
-  const h=G.players.find(p=>p.orig==='hunter'&&p.alive);
-  if(h&&!h.bedPick){const opts=G.players.filter(p=>p.alive&&p.id!==h.id);if(opts.length)h.bedPick=opts[Math.floor(Math.random()*opts.length)].id}
+  const alive=G.players.filter(p=>p.alive);
+  const rnd=(p,selfOk)=>{const o=alive.filter(q=>selfOk||q.id!==p.id);return o.length?o[Math.floor(Math.random()*o.length)].id:null};
+  const h=alive.find(p=>p.orig==='hunter');if(h&&!h.bedPick)h.bedPick=rnd(h,false);
+  G.heal=null;
+  const hl=alive.find(p=>p.orig==='healer');
+  if(hl){if(!hl.bedPick)hl.bedPick=rnd(hl,true);G.heal=hl.bedPick;persistNote(hl.id,{k:'healed',id:G.heal})}
+  const sr=alive.find(p=>p.orig==='seer');
+  if(sr){if(!sr.bedPick)sr.bedPick=rnd(sr,false);seerCheck(sr)}
   startNight();
 }
 function startNight(){
@@ -829,7 +841,7 @@ function endNightClassic(){
   G.players.filter(p=>p.alive&&p.orig==='wolf').forEach(w=>{const v=N.wolfVotes[w.id];if(v)tally[v]=(tally[v]||0)+1});
   const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(k=>tally[k]===max);
   const victim=max?top[Math.floor(Math.random()*top.length)]:null;
-  if(victim&&N.heal!==victim)kill(victim,'wolves');
+  if(victim&&G.heal!==victim)kill(victim,'wolves');
   settle('day');
 }
 function checkWin(){
@@ -1168,15 +1180,26 @@ function voteHTML(){
   ${pgrid(list,p=>({attr:pickAttr(p.id),sel:sel===p.id,beans:sel===p.id?1:0,drop:ui.drop===p.id,role:wolfRole(p)}))}
   <div class="grow"></div><button class="btn red" data-a="castvote" ${sel?'':'disabled'}>${sel?t('voteFor',pname(sel)):t('voteTitle')}</button>`;
 }
+function seerRevealHTML(sn,endAt){
+  const nm=pname(sn.id),rr=sn.role;
+  return `<div class="loteria r-${rr} seercard" id="seercard" data-start="${V.at}" data-end="${endAt}"><div class="lot-in">
+    <div class="lot-face lot-front"><div class="lot-num">${ROLE_SORT.indexOf(rr)+1}</div><div class="lot-art">${ri(rr)}</div><div class="lot-cap">${esc(cap(rr))}</div><div class="lot-team">${t('team')}: ${t('team_'+teamOf(rr))}</div></div>
+    <div class="lot-face lot-back"><span>${nm}</span></div></div></div>
+    <p class="center" style="font:400 24px 'Rye',serif;margin:0">${nm}</p><div class="mini-cd" data-end="${endAt}"></div>`;
+}
 function bedHTML(){
   const head=`<h2 style="margin-top:40px">${ic('moon')} ${t('bedTitle')}</h2>${cd()}`;
   if(!V.alive)return `${head}<div class="err">${t('youDead')}</div>`;
   const B=V.bed,go=B.go;
-  const btn=`<button class="btn" data-a="bedgo" ${go||(B.hunter&&!B.pick)?'disabled':''}>${go?t('bedWait'):ic('moon')+' '+t('bedBtn')}</button>`;
-  if(B.hunter){
-    const list=V.players.filter(p=>p.id!==V.you&&p.alive);
-    return `${head}<p class="center mut">${t('bedTextCharro')}</p>
-    ${pgrid(list,p=>({attr:go?'disabled':`data-a="bedpick" data-v="${p.id}"`,sel:B.pick===p.id,beans:B.pick===p.id?1:0,drop:ui.drop===p.id}))}
+  const btn=`<button class="btn" data-a="bedgo" ${go||(B.picker&&!B.pick)?'disabled':''}>${go?t('bedWait'):ic('moon')+' '+t('bedBtn')}</button>`;
+  if(B.picker){
+    if(B.picker==='seer'&&go){
+      const sn=[...V.notes].reverse().find(n=>n.k==='seerW'&&n.id===B.pick&&n.role);
+      if(sn)return `${head}${seerRevealHTML(sn,V.at+V.remaining)}<div class="grow"></div>${btn}`;
+    }
+    const list=V.players.filter(p=>p.alive&&(B.picker==='healer'||p.id!==V.you));
+    return `${head}<p class="center mut">${t('bedText_'+B.picker)}</p>
+    ${pgrid(list,p=>({attr:go?'disabled':`data-a="bedpick" data-v="${p.id}"`,sel:B.pick===p.id,beans:B.pick===p.id?1:0,drop:ui.drop===p.id,role:wolfRole(p)}))}
     <div class="grow"></div>${btn}`;
   }
   if(B.minion){
