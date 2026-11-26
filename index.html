@@ -233,6 +233,8 @@ span.rt{cursor:default}
 .colrow{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;margin:6px 0 4px}
 .swatch{aspect-ratio:1;padding:0;border:3px solid #2a1a10;border-radius:6px;background:var(--tb);box-shadow:2px 3px 0 #2a1a10;cursor:pointer;transition:transform .08s}
 .swatch.sel{transform:rotate(-6deg) translateY(-3px);box-shadow:0 0 0 3px #eaa21a,2px 3px 0 3px #2a1a10}
+.mini-cd{text-align:center;font:400 26px 'Rye',serif;color:var(--acc);margin:6px 0 4px}
+.seercard{margin-top:6px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -260,7 +262,7 @@ const ic=(n,s)=>{const i=ICONS[n];if(!i)return '';const sz=s?` width="${s}" heig
 /* ================= i18n ================= */
 const I18N={
 en:{
-title:'WOLF',fxSounds:'Wolf and gunshot sounds',makeCard:'Make your card',pickColor:'Card color',done:'Done',rooster:'Rooster at dawn',tapCard:'Tap your card to pick your icon and color',fillsRest:'fills the rest',onlyOne:'One Night only',onlyClassic:'Classic only',rule_minion_c:'Each night you see who the wolves are. They do not see you. Cover for them, compadre!',win_r_minion_c:'You win when the wolves win, even if you are eliminated.',rule_tanner_c:'No night action. Life on the ranch is hard – you only win if the ranch votes YOU out. The wolves killing you does not count!',win_r_tanner_c:'You win alone if the ranch eliminates you by vote.',pickIcon:'Pick your icon',yourIcon:'Your icon',wolvesN:'Wolves',auto:'Auto',rolesOpt:'Roles to include',tapRoleHint:'Tap a role to include it or leave it out.',inThisGame:'In this game',closeNow:'CLOSE YOUR EYES NOW',testVibRoles:"Test my phone's vibration",loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
+title:'WOLF',closeIn:'Close your eyes in {0}',fxSounds:'Wolf and gunshot sounds',makeCard:'Make your card',pickColor:'Card color',done:'Done',rooster:'Rooster at dawn',tapCard:'Tap your card to pick your icon and color',fillsRest:'fills the rest',onlyOne:'One Night only',onlyClassic:'Classic only',rule_minion_c:'You never wake up at night. Your phone quietly shows you who the wolves are, and they do not see you. Cover for them, compadre!',win_r_minion_c:'You win when the wolves win, even if you are eliminated.',rule_tanner_c:'No night action. Life on the ranch is hard – you only win if the ranch votes YOU out. The wolves killing you does not count!',win_r_tanner_c:'You win alone if the ranch eliminates you by vote.',pickIcon:'Pick your icon',yourIcon:'Your icon',wolvesN:'Wolves',auto:'Auto',rolesOpt:'Roles to include',tapRoleHint:'Tap a role to include it or leave it out.',inThisGame:'In this game',closeNow:'CLOSE YOUR EYES NOW',testVibRoles:"Test my phone's vibration",loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
 yourName:'Your name',namePH:'Enter your name',needName:'Please enter your name.',
 create:'Open a ranch',join:'Join a ranch',roomCode:'Ranch code',joinBtn:'Enter the ranch',howTo:'How to play',back:'Back',
 settings:'Settings',language:'Language',vibration:'Vibration',sound:'Sounds',keepAwake:'Keep screen on',test:'Test',
@@ -343,7 +345,7 @@ win_r_tanner:'You win only if you are eliminated.',win_r_villager:'You win if a 
 phaseRoles:'Roles are being dealt…'
 },
 es:{
-title:'LOBO',fxSounds:'Sonidos de lobo y disparos',makeCard:'Arma tu carta',pickColor:'Color de tu carta',done:'Listo',rooster:'Gallo al amanecer',tapCard:'Toca tu carta para elegir tu ícono y color',fillsRest:'rellena el resto',onlyOne:'solo Una Noche',onlyClassic:'solo Clásico',rule_minion_c:'Cada noche ves quiénes son los lobos. Ellos no te ven. ¡Cúbreles las espaldas, compadre!',win_r_minion_c:'Ganas cuando ganan los lobos, aunque te eliminen.',rule_tanner_c:'Sin acción nocturna. La vida en el rancho es dura – solo ganas si el rancho vota por TI. ¡Que te maten los lobos no cuenta!',win_r_tanner_c:'Ganas solo si el rancho te elimina por votación.',pickIcon:'Elige tu ícono',yourIcon:'Tu ícono',wolvesN:'Lobos',auto:'Auto',rolesOpt:'Roles a incluir',tapRoleHint:'Toca un rol para incluirlo o dejarlo fuera.',inThisGame:'En esta partida',closeNow:'CIERRA LOS OJOS YA',testVibRoles:'Probar la vibración de mi teléfono',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
+title:'LOBO',closeIn:'Cierra los ojos en {0}',fxSounds:'Sonidos de lobo y disparos',makeCard:'Arma tu carta',pickColor:'Color de tu carta',done:'Listo',rooster:'Gallo al amanecer',tapCard:'Toca tu carta para elegir tu ícono y color',fillsRest:'rellena el resto',onlyOne:'solo Una Noche',onlyClassic:'solo Clásico',rule_minion_c:'Nunca despiertas de noche. Tu teléfono te muestra en silencio quiénes son los lobos, y ellos no te ven. ¡Cúbreles las espaldas, compadre!',win_r_minion_c:'Ganas cuando ganan los lobos, aunque te eliminen.',rule_tanner_c:'Sin acción nocturna. La vida en el rancho es dura – solo ganas si el rancho vota por TI. ¡Que te maten los lobos no cuenta!',win_r_tanner_c:'Ganas solo si el rancho te elimina por votación.',pickIcon:'Elige tu ícono',yourIcon:'Tu ícono',wolvesN:'Lobos',auto:'Auto',rolesOpt:'Roles a incluir',tapRoleHint:'Toca un rol para incluirlo o dejarlo fuera.',inThisGame:'En esta partida',closeNow:'CIERRA LOS OJOS YA',testVibRoles:'Probar la vibración de mi teléfono',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
 yourName:'Tu nombre',namePH:'Escribe tu nombre',needName:'Por favor escribe tu nombre.',
 create:'Abrir un rancho',join:'Entrar a un rancho',roomCode:'Código del rancho',joinBtn:'Entrar al rancho',howTo:'Cómo jugar',back:'Atrás',
 settings:'Ajustes',language:'Idioma',vibration:'Vibración',sound:'Sonidos',keepAwake:'Mantener pantalla encendida',test:'Probar',
@@ -549,7 +551,7 @@ function onMsg(m){
 
 /* ================= host: authoritative game ================= */
 const clean=s=>String(s||'').replace(/[<>]/g,'').trim().slice(0,14);
-const CLASSIC_NIGHT=['wolf','minion','healer','seer'];
+const CLASSIC_NIGHT=['wolf','healer','seer'];
 const dur=r=>Math.round((G.mode==='classic'?DURC[r]:DUR[r])*SPEED);
 const sp=ms=>Math.round(ms*SPEED);
 function deckClassic(n){
@@ -694,7 +696,9 @@ function startGame(){
   G.center=G.mode==='classic'?[]:cards.slice(n);
   G.players.forEach((p,i)=>{p.orig=p.cur=cards[i];p.ready=false;p.dayReady=false;p.vote=null;p.alive=true});
   G.deck=cards.slice().sort((a,b)=>ROLE_SORT.indexOf(a)-ROLE_SORT.indexOf(b));
-  G.notes={};G.result=null;G.round=1;G.dawn=null;G.news=[];G.verdict=null;G.shot=null;G.hunterPending=null;G.tannerWin=false;G.phase='roles';
+  G.notes={};
+  if(G.mode==='classic'){const ws=G.players.filter(p=>p.orig==='wolf').map(p=>p.id);G.players.filter(p=>p.orig==='minion').forEach(p=>{G.notes[p.id]=[{k:'minion',ids:ws}]})}
+  G.result=null;G.round=1;G.dawn=null;G.news=[];G.verdict=null;G.shot=null;G.hunterPending=null;G.tannerWin=false;G.phase='roles';
 }
 function startNight(){
   const base=G.mode==='classic'?CLASSIC_NIGHT:NIGHT_ORDER;
@@ -771,7 +775,7 @@ function classicAct(p,m){
   if(r==='wolf'){if(q.orig==='wolf'||q===p)return;N.wolfVotes[p.id]=q.id;maybeFinishStep();return}
   if(N.acted[p.id])return;
   if(r==='healer'){N.heal=q.id;addNote(p.id,{k:'healed',id:q.id})}
-  else if(r==='seer'){if(q===p)return;addNote(p.id,{k:'seerW',id:q.id,wolf:q.orig==='wolf'})}
+  else if(r==='seer'){if(q===p)return;addNote(p.id,{k:'seerW',id:q.id,wolf:q.orig==='wolf',role:q.orig})}
   else return;
   N.acted[p.id]=1;maybeFinishStep();
 }
@@ -932,7 +936,7 @@ function noteText(n){
     case 'insomniac':return t('note_insomniac',roleLabel(n.role));
     case 'skip':return t('note_skip');
     case 'healed':return t('note_healed',pname(n.id));
-    case 'seerW':return t(n.wolf?'note_seerW':'note_seerN',pname(n.id));
+    case 'seerW':return n.role?t('note_seerP',pname(n.id),roleLabel(n.role)):t(n.wolf?'note_seerW':'note_seerN',pname(n.id));
   }
   return '';
 }
@@ -1023,6 +1027,7 @@ function lobbyHTML(){
 function rolesHTML(){
   const r=V.role,rd=ui.reveal,ready=V.players.filter(p=>p.ready).length,me=V.players.find(p=>p.id===V.you),hostMe=V.host===V.you;
   return `<h2 style="margin-top:40px">${t('yourRole')}</h2>${cantor('roles')}${roleCard(r,rd)}${rulesBlock(r,rd)}
+  ${V.notes.length?`<div class="hide-sec ${rd?'':'hidden-face'}"><h3>${t('learned')}</h3>${V.notes.map(n=>`<div class="note">${noteText(n)}</div>`).join('')}</div>`:''}
   <p class="center mut" style="font-size:15px">${ic('eye-off')} ${t('secret')}</p>
   <button class="link" data-a="testvib">${t('testVibRoles')}</button>${canVib?'':`<p class="center mut" style="font-size:14px">${t('noVib')}</p>`}
   <label>${t('yourName')}</label><input id="roleName" maxlength="14" autocomplete="off" value="${esc(ui.name)}">
@@ -1035,7 +1040,15 @@ function nightHTML(){
   if(!N.active)return `<div class="sleep"><div class="moon">${ic('moon',90)}</div><h2>${t('sleepTitle')}</h2>${cantor('sleep')}<p>${t('sleepText')}</p><div class="cacti">${ic('cactus',64)}${ic('cactus',44)}${ic('cactus',56)}</div></div>`;
   const r=N.role,mine=N.mine||[];
   let h=`<div class="wake"><div class="eye">${ic('eye',72)}</div><h2>${t('wake')}</h2><div class="rolechip ${teamOf(r)}">${ri(r)} ${esc(cap(r))}</div>`;
-  h+=mine.map(n=>`<div class="note">${noteText(n)}</div>`).join('');
+  const sn=mine.find(n=>n.k==='seerW'&&n.role);
+  h+=mine.filter(n=>n!==sn).map(n=>`<div class="note">${noteText(n)}</div>`).join('');
+  if(sn){
+    const nm=pname(sn.id),rr=sn.role;
+    h+=`<div class="loteria r-${rr} seercard" id="seercard" data-start="${V.at}" data-end="${V.at+N.remaining}"><div class="lot-in">
+      <div class="lot-face lot-front"><div class="lot-num">${ROLE_SORT.indexOf(rr)+1}</div><div class="lot-art">${ri(rr)}</div><div class="lot-cap">${esc(cap(rr))}</div><div class="lot-team">${t('team')}: ${t('team_'+teamOf(rr))}</div></div>
+      <div class="lot-face lot-back"><span>${nm}</span></div></div></div>
+      <p class="center" style="font:400 24px 'Rye',serif;margin:0">${nm}</p><div class="mini-cd" data-end="${V.at+N.remaining}"></div>`;
+  }
   if(N.needs){
     const tgt=(list,isSel)=>pgrid(list,p=>{const s=isSel(p);return{attr:pickAttr(p.id),sel:s,beans:s?1:0,drop:ui.drop===p.id}});
     const grid=list=>tgt(list,p=>ui.sel.includes(p.id));
@@ -1060,7 +1073,7 @@ function nightHTML(){
     h+=`<p class="center">${p}</p>${body}<button class="btn" data-a="confirm" ${ui.sel.length===need?'':'disabled'}>${t('confirm')}</button>`;
     if(!cl&&r!=='seer'&&r!=='drunk')h+=`<button class="btn sec small" data-a="skip">${t('skip')}</button>`;
   }
-  h+=`<p class="center mut" style="font-size:15px;margin-top:16px">${t('closeSoon')}</p><div class="closing" id="closing" data-end="${V.at+N.remaining}" hidden><div><p>${t('closeNow')}</p><div class="cl-num">5</div></div></div></div>`;
+  h+=`<p class="center mut" style="font-size:15px;margin-top:16px">${t('closeSoon')}</p>${sn?'':`<div class="closing" id="closing" data-end="${V.at+N.remaining}" hidden><div><p>${t('closeNow')}</p><div class="cl-num">5</div></div></div>`}</div>`;
   return h;
 }
 function rolesInPlay(){
@@ -1163,6 +1176,10 @@ function render(){
 }
 function tick(){
   document.querySelectorAll('[data-cd]').forEach(e=>{e.textContent=fmt(+e.dataset.cd-Date.now())});
+  const sc=document.getElementById('seercard');
+  if(sc){const left=+sc.dataset.end-Date.now();sc.classList.toggle('shown',Date.now()-(+sc.dataset.start)>300&&left>700)}
+  const mc=document.querySelector('.mini-cd');
+  if(mc){const left=+mc.dataset.end-Date.now(),n=Math.max(1,Math.ceil(left/(1000*SPEED)));mc.textContent=t('closeIn',n);if(ui.lastM!==n){ui.lastM=n;buzz(60)}}else ui.lastM=null;
   const c=document.getElementById('closing');
   if(c){
     const left=+c.dataset.end-Date.now();
