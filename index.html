@@ -645,7 +645,7 @@ function viewFor(pid){
     }
   }
   if(G.phase==='day'){v.remaining=left(G.day.endsAt);v.dawn=G.dawn}
-  if(G.phase==='vote'){v.remaining=left(G.vote.endsAt);v.myVote=me.vote;v.vote={cands:G.vote.cands,runoff:G.vote.runoff}}
+  if(G.phase==='vote'){v.remaining=left(G.vote.endsAt);v.myVote=me.vote;v.vote={cands:G.vote.cands,runoff:G.vote.runoff};const tl={};G.players.forEach(q=>{if(q.vote&&q.alive)tl[q.vote]=(tl[q.vote]||0)+1});v.tally=tl}
   if(G.phase==='verdict'){v.remaining=left(G.verdict.endsAt);v.verdict=G.verdict}
   if(G.phase==='shot'){v.remaining=left(G.shot.endsAt);v.shot={id:G.shot.id}}
   if(G.phase==='bed'){v.remaining=left(G.bed.endsAt);v.bed={pick:me.bedPick||null,go:!!me.bedGo,picker:['hunter','healer','seer'].includes(me.orig)&&me.alive!==false?me.orig:null,minion:me.orig==='minion'&&me.alive!==false}}
@@ -750,7 +750,8 @@ function startNight(){
   const order=base.filter(r=>G.deck.includes(r));
   G.phase='night';G.night={order,idx:-1,role:null,acted:{},stepNotes:{},wolfVotes:{},heal:null,endsAt:0};
   G.players.forEach(p=>{p.dayReady=false;p.vote=null});
-  nextStep();
+  G.night.endsAt=Date.now()+sp(10000);
+  setTimer(nextStep,sp(10000));hostBroadcast();
 }
 function addNote(pid,n,persist=true){
   if(persist)(G.notes[pid]=G.notes[pid]||[]).push(n);
@@ -935,8 +936,10 @@ function checkProgress(){
 }
 
 /* ================= client: view handling & effects ================= */
+const tallyOf=v=>{if(!v)return null;if(v.tally)return v.tally;if(v.night&&v.night.wolfVotes){const c={};Object.values(v.night.wolfVotes).forEach(x=>{c[x]=(c[x]||0)+1});return c}return null};
 function onView(v){
   const prev=V;v.at=Date.now();V=v;ui.screen='game';
+  ui.dropIds=null;{const a=tallyOf(prev),b=tallyOf(v);if(a&&b){const st=new Set();for(const k in b)if((b[k]||0)>(a[k]||0))st.add(k);if(st.size)ui.dropIds=st}}
   if(!prev||prev.phase!==v.phase||(v.night&&prev.night&&v.night.step!==prev.night.step)||(v.vote&&prev.vote&&v.vote.runoff!==prev.vote.runoff)){ui.sel=[];ui.seerTab='p'}
   if(!prev||prev.phase!==v.phase){ui.reveal=false;ui.fxPending=true}
   effects(prev,v);
@@ -1123,7 +1126,7 @@ function nightHTML(){
       if(r==='wolf'){
         p=lastBanner()+t('p_wolfC');
         const targets=others.filter(x=>x.alive&&!N.wolves.includes(x.id));
-        body=tgt(targets,x=>ui.sel.includes(x.id)||(!ui.sel.length&&N.myVote===x.id))+`
+        body=pgrid(targets,x=>{const c=Object.values(N.wolfVotes).filter(v=>v===x.id).length,pend=ui.sel.includes(x.id)&&N.myVote!==x.id;return{attr:pickAttr(x.id),sel:ui.sel.includes(x.id)||(!ui.sel.length&&N.myVote===x.id),beans:c+(pend?1:0),drop:ui.drop===x.id||!!(ui.dropIds&&ui.dropIds.has(x.id)),role:wolfRole(x)}})+`
           <h3>${t('packVotes')}</h3>${N.wolves.map(id=>`<div class="note" style="padding:8px 12px;font-size:15px">${pname(id)} &rarr; ${N.wolfVotes[id]?`<b>${pname(N.wolfVotes[id])}</b>`:`<span class="mut">${t('noVoteYet')}</span>`}</div>`).join('')}`;
       }else if(r==='healer'){p=t('p_healer');body=grid(V.players.filter(x=>x.alive))}
       else if(r==='seer'){p=t('p_seerC');body=grid(others.filter(x=>x.alive))}
@@ -1167,17 +1170,18 @@ function dayHTML(){
   ${hostMe?`<button class="btn sec small" data-a="force">${t('voteNow')}</button>`:''}`;
 }
 function voteHTML(){
-  const cands=V.vote&&V.vote.cands;
+  const cands=V.vote&&V.vote.cands,tl=V.tally||{};
   const ro=cands?`<div class="note dead-note" style="text-align:center">${t('runoff',cands.map(pname).join(' / '))}</div>`:'';
   const act=V.players.filter(p=>p.on&&p.alive),voted=act.filter(p=>p.voted).length;
   const hostBtn=V.host===V.you?`<button class="btn sec small" data-a="force">${t('voteNow')}</button>`:'';
   const head=`<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>`;
-  if(!V.alive)return `${head}${ro}${cd()}<div class="err">${t('youDead')} ${t('deadVote')}</div><div class="grow"></div>${hostBtn}`;
-  if(V.myVote){const q=V.players.find(p=>p.id===V.myVote);return `${head}${ro}${cd()}<div class="tabla one">${pcard(q,{beans:1})}</div><p class="center mut">${t('voted',voted,act.length)}</p><div class="grow"></div>${hostBtn}`}
-  const sel=ui.sel[0];
-  const list=V.players.filter(p=>p.id!==V.you&&p.alive&&(!cands||cands.includes(p.id)));
+  const canPick=V.alive&&!V.myVote,sel=canPick?ui.sel[0]:null;
+  const list=V.players.filter(p=>p.alive&&(!cands||cands.includes(p.id)));
+  const grid=pgrid(list,p=>({attr:(canPick&&p.id!==V.you)?pickAttr(p.id):undefined,sel:sel===p.id||V.myVote===p.id,beans:(tl[p.id]||0)+(sel===p.id?1:0),drop:ui.drop===p.id||!!(ui.dropIds&&ui.dropIds.has(p.id)),role:wolfRole(p),you:p.id===V.you}));
+  if(!V.alive)return `${head}${ro}${cd()}<div class="err">${t('youDead')} ${t('deadVote')}</div>${grid}<div class="grow"></div>${hostBtn}`;
+  if(V.myVote)return `${head}${ro}${cd()}${grid}<p class="center mut">${t('voted',voted,act.length)}</p><div class="grow"></div>${hostBtn}`;
   return `${head}${cantor('vote')}${ro}${lastBanner()}<p class="center mut">${t('voteText')}</p>${cd()}
-  ${pgrid(list,p=>({attr:pickAttr(p.id),sel:sel===p.id,beans:sel===p.id?1:0,drop:ui.drop===p.id,role:wolfRole(p)}))}
+  ${grid}
   <div class="grow"></div><button class="btn red" data-a="castvote" ${sel?'':'disabled'}>${sel?t('voteFor',pname(sel)):t('voteTitle')}</button>`;
 }
 function seerRevealHTML(sn,endAt){
@@ -1270,21 +1274,21 @@ function render(){
   el.innerHTML=(connected===false&&!isHost&&V?`<div class="offline">${t('reconnecting')}</div>`:'')+screenHTML()+(showGear?'<button class="gear" data-a="openmodal" aria-label="settings">'+ic('settings',22)+'</button>':'');
   $('#modal').innerHTML=modalHTML();
   if(fid){const n=document.getElementById(fid);if(n&&n.tagName==='INPUT'){n.focus();try{n.setSelectionRange(ss,ss)}catch(e){}}}
-  ui.drop=null;tick();
+  ui.drop=null;ui.dropIds=null;tick();
 }
 function tick(){
   document.querySelectorAll('[data-cd]').forEach(e=>{e.textContent=fmt(+e.dataset.cd-Date.now())});
   const sc=document.getElementById('seercard');
   if(sc){const left=+sc.dataset.end-Date.now();sc.classList.toggle('shown',Date.now()-(+sc.dataset.start)>300&&left>700)}
   const mc=document.querySelector('.mini-cd');
-  if(mc){const left=+mc.dataset.end-Date.now(),n=Math.max(1,Math.ceil(left/(1000*SPEED)));mc.textContent=t('closeIn',n);if(ui.lastM!==n){ui.lastM=n;buzz(60)}}else ui.lastM=null;
+  if(mc){const left=+mc.dataset.end-Date.now(),n=Math.max(1,Math.ceil(left/(1000*SPEED)));mc.textContent=t('closeIn',n);if(ui.lastM!==n){ui.lastM=n}}else ui.lastM=null;
   const c=document.getElementById('closing');
   if(c){
     const left=+c.dataset.end-Date.now();
     if(left<=5000*SPEED&&left>-300){
       c.hidden=false;const n=Math.max(1,Math.ceil(left/(1000*SPEED))),b=c.querySelector('.cl-num');
       if(b.textContent!=n)b.textContent=n;
-      if(ui.lastN!==n){ui.lastN=n;buzz(80);beep(520,.1)}
+      if(ui.lastN!==n){ui.lastN=n}
     }else{c.hidden=true;ui.lastN=null}
   }
 }
