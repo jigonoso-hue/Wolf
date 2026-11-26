@@ -954,7 +954,6 @@ function lobbyHTML(){
   <button class="btn sec small" data-a="share">${ic('share-2')} ${t('share')}</button>
   <label>${t('yourName')}</label><input id="lobbyName" maxlength="14" autocomplete="off" value="${esc(ui.name)}">
   <h3>${t('players',n)}</h3>${pgrid(V.players,p=>({crown:p.id===V.host,you:p.id===V.you}))}
-  <h3>${t('yourIcon')}</h3>${avPicker()}
   <label>${t('mode')}</label>
   <div class="tabs">${['classic','one'].map(m=>`<button class="${V.mode===m?'on':''}" ${hostMe?`data-a="mode" data-v="${m}"`:'disabled'}>${t('mode_'+m)}</button>`).join('')}</div>
   <p class="mut" style="font-size:15px;margin:4px 0">${t('modeDesc_'+V.mode)}</p>${cfgHTML(hostMe)}
