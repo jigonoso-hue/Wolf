@@ -268,7 +268,7 @@ title:'WOLF',yourPack:'Your pack',testVibBtn:'Test vibration',vibTried:'Buzzing 
 yourName:'Your name',namePH:'Enter your name',needName:'Please enter your name.',
 create:'Open a ranch',join:'Join a ranch',roomCode:'Ranch code',joinBtn:'Enter the ranch',howTo:'How to play',back:'Back',
 settings:'Settings',language:'Language',vibration:'Vibration',sound:'Sounds',keepAwake:'Keep screen on',test:'Test',
-noVib:"This device/browser doesn't support vibration (iPhones don't). Your screen will flash instead.",
+noVib:"This device/browser doesn't support vibration (iPhones don't). Instead your screen will flash and a sound will wake you: a wolf howl for wolves, a crystal twinkle for the Adivina.",
 leave:'Leave game',leaveConfirm:'Leave this game?',close:'Close',discussTime:'Talk time',min:'{0} min',
 mode:'Game mode',mode_classic:'Classic',mode_one:'One Night',
 modeDesc_classic:'The wolves hunt every night, the ranch votes every day. Last side standing wins.',
@@ -351,7 +351,7 @@ title:'LOBO',yourPack:'Tu manada',testVibBtn:'Probar vibración',vibTried:'¡Vib
 yourName:'Tu nombre',namePH:'Escribe tu nombre',needName:'Por favor escribe tu nombre.',
 create:'Abrir un rancho',join:'Entrar a un rancho',roomCode:'Código del rancho',joinBtn:'Entrar al rancho',howTo:'Cómo jugar',back:'Atrás',
 settings:'Ajustes',language:'Idioma',vibration:'Vibración',sound:'Sonidos',keepAwake:'Mantener pantalla encendida',test:'Probar',
-noVib:'Este dispositivo/navegador no admite vibración (los iPhone no). La pantalla parpadeará en su lugar.',
+noVib:'Este dispositivo/navegador no admite vibración (los iPhone no). En su lugar la pantalla parpadeará y sonará un aviso: aullido para los lobos, destellos de cristal para la Adivina.',
 leave:'Salir de la partida',leaveConfirm:'¿Salir de esta partida?',close:'Cerrar',discussTime:'Tiempo de plática',min:'{0} min',
 mode:'Modo de juego',mode_classic:'Clásico',mode_one:'Una Noche',
 modeDesc_classic:'Los lobos cazan cada noche, el rancho vota cada día. Gana el último bando en pie.',
@@ -474,6 +474,21 @@ function playSound(name){
     else{const a=new Audio(AUDIO[name]);a.volume=1;a.play().catch(()=>{})}
   }catch(e){}
 }
+function twinkle(notes,step,decay){
+  try{unlockAudio();const t0=actx.currentTime+0.02;
+    notes.forEach((f,i)=>{const t=t0+i*step;
+      [[f,0.2],[f*2,0.07],[f*3,0.03]].forEach(([fr,amp])=>{
+        const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=fr;
+        g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(amp,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+decay);
+        o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+decay+0.05)})})
+  }catch(e){}
+}
+/* when the phone can't vibrate: wolves hear a howl, the Adivina a crystal twinkle, everyone else a soft chime */
+function wakeSound(role){
+  if(role==='wolf')playSound('wolf');
+  else if(role==='seer')twinkle([1318.5,1568,1975.5,2349.3,2637,3136],0.09,1.1);
+  else twinkle([660,880],0.18,1.2);
+}
 function playRooster(){if(S.rooster)playSound('rooster')}
 function onSfx(kind){
   if(!S.fx)return;
@@ -483,7 +498,7 @@ function onSfx(kind){
 document.addEventListener('pointerdown',unlockAudio,{passive:true});
 function beep(freq=600,dur=.25){if(!S.snd)return;try{unlockAudio();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=freq;g.gain.value=.08;o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+dur)}catch(e){}}
 function flash(){const f=$('#flash');if(!f)return;f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}
-function buzz(p,force){if(!S.vib&&!force)return;let ok=false;if(canVib){try{ok=navigator.vibrate(p)}catch(e){}}if(!ok&&(Array.isArray(p)&&p.length>1||p>60))flash()}
+function buzz(p,force){if(!S.vib&&!force)return false;let ok=false;if(canVib){try{ok=navigator.vibrate(p)}catch(e){}}if(!ok&&(Array.isArray(p)&&p.length>1||p>60))flash();return !!ok}
 document.addEventListener('pointerdown',()=>{try{canVib&&navigator.vibrate(0)}catch(e){}},{passive:true});
 let wl=null;
 async function wakeLock(on){try{if(on&&S.awake&&'wakeLock' in navigator){if(!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}else if(wl){await wl.release();wl=null}}catch(e){}}
@@ -926,7 +941,7 @@ function effects(a,b){
   const key=v=>!v?'':v.phase==='night'?'n'+v.night.step+(v.night.active?'a':'s'):v.phase==='vote'?'vote'+(v.vote&&v.vote.runoff?'r':''):v.phase;
   if(key(a)===key(b))return;
   if(b.phase==='day'){buzz([500,100,500]);if(a&&a.phase==='night')playRooster()}
-  else if(b.phase==='night'&&b.night.active){buzz(b.night.role==='wolf'?[700,200,700,200,1200]:[600,200,600]);beep(b.night.role==='wolf'?330:660,.3)}
+  else if(b.phase==='night'&&b.night.active){const vibrated=buzz(b.night.role==='wolf'?[700,200,700,200,1200]:[600,200,600]);beep(b.night.role==='wolf'?330:660,.3);if(!vibrated)wakeSound(b.night.role)}
   else if(a&&a.phase==='night'&&a.night.active){buzz([140])}
   else if(b.phase==='shot'&&b.shot.id===b.you){buzz([300,100,300,100,700]);beep(300,.5)}
   else if(b.phase==='bed'){buzz([100,60,100])}
