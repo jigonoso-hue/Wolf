@@ -198,6 +198,10 @@ div.pc{cursor:default}
 .hr-art .ic{width:70%;height:70%;color:var(--tf)}
 .banner.fx{animation:stamp .6s cubic-bezier(.2,.9,.3,1.2) both}
 @keyframes stamp{from{transform:scale(2.3) rotate(-10deg);opacity:0}to{transform:rotate(-1deg);opacity:1}}
+.closing{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;text-align:center;background:rgba(7,6,24,.95);padding:24px}
+.closing[hidden]{display:none}
+.closing p{font:400 30px/1.15 'Rye',serif;color:#f3e4c3;margin:0 0 6px}
+.cl-num{font:400 170px/1 'Rye',serif;color:var(--acc);text-shadow:5px 6px 0 #000}
 </style>
 </head>
 <body>
@@ -225,7 +229,7 @@ const ic=(n,s)=>{const i=ICONS[n];if(!i)return '';const sz=s?` width="${s}" heig
 /* ================= i18n ================= */
 const I18N={
 en:{
-title:'WOLF',loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
+title:'WOLF',closeNow:'CLOSE YOUR EYES NOW',testVibRoles:"Test my phone's vibration",loteria:'¡LOTERÍA!',was:'was',c_lobby:'Take a seat – the caller is about to sing!',c_roles:'Peek at your card, but show it to no one.',c_sleep:'The ranch sleeps… but the wolf does not.',c_day:'The sun is up, and somebody is lying…',c_vote:'Put a bean on the suspect.',c_verdict:'Whoever collects the most beans, goes!',c_lose:'Better luck next round, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'A night at the ranch',chooseLang:'Choose your language',
 yourName:'Your name',namePH:'Enter your name',needName:'Please enter your name.',
 create:'Open a ranch',join:'Join a ranch',roomCode:'Ranch code',joinBtn:'Enter the ranch',howTo:'How to play',back:'Back',
 settings:'Settings',language:'Language',vibration:'Vibration',sound:'Sounds',keepAwake:'Keep screen on',test:'Test',
@@ -308,7 +312,7 @@ win_r_tanner:'You win only if you are eliminated.',win_r_villager:'You win if a 
 phaseRoles:'Roles are being dealt…'
 },
 es:{
-title:'LOBO',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
+title:'LOBO',closeNow:'CIERRA LOS OJOS YA',testVibRoles:'Probar la vibración de mi teléfono',loteria:'¡LOTERÍA!',was:'era',c_lobby:'¡Siéntense, que ya va a cantar el cantor!',c_roles:'Mira tu carta, pero a nadie se la enseñes.',c_sleep:'Duerme el rancho… pero el lobo no.',c_day:'Ya salió el sol, y alguien está mintiendo…',c_vote:'Ponle frijol al sospechoso.',c_verdict:'¡El que más frijoles junte, ese se va!',c_lose:'Ya será para la próxima, compadre.',cap_wolf:'El Lobo',cap_minion:'El Compadre',cap_seer:'La Adivina',cap_healer:'La Curandera',cap_robber:'El Bandido',cap_troublemaker:'El Chismoso',cap_drunk:'El Borracho',cap_insomniac:'El Desvelado',cap_hunter:'El Charro',cap_tanner:'El Alma en Pena',cap_villager:'El Ranchero',sub:'Una noche en el rancho',chooseLang:'Elige tu idioma',
 yourName:'Tu nombre',namePH:'Escribe tu nombre',needName:'Por favor escribe tu nombre.',
 create:'Abrir un rancho',join:'Entrar a un rancho',roomCode:'Código del rancho',joinBtn:'Entrar al rancho',howTo:'Cómo jugar',back:'Atrás',
 settings:'Ajustes',language:'Idioma',vibration:'Vibración',sound:'Sonidos',keepAwake:'Mantener pantalla encendida',test:'Probar',
@@ -400,8 +404,8 @@ const ROLE_SORT=['wolf','minion','seer','healer','robber','troublemaker','drunk'
 const NIGHT_ORDER=['wolf','minion','seer','robber','troublemaker','drunk','insomniac'];
 const DECK_ORDER=['wolf','seer','robber','troublemaker','villager','wolf','drunk','insomniac','minion','villager','tanner','hunter','villager'];
 const SPEED=/[?&]fast/.test(location.search)?0.2:1;
-const DUR={wolf:14000,minion:9000,seer:16000,robber:14000,troublemaker:14000,drunk:11000,insomniac:9000};
-const DURC={wolf:22000,healer:12000,seer:12000};
+const DUR={wolf:18000,minion:12000,seer:20000,robber:18000,troublemaker:18000,drunk:14000,insomniac:12000};
+const DURC={wolf:25000,healer:16000,seer:16000};
 const teamOf=r=>r==='wolf'||r==='minion'?'wolf':r==='tanner'?'tanner':'village';
 const rn=r=>t('role_'+r);
 const MAXP=10,MINP=3;
@@ -413,7 +417,8 @@ function unlockAudio(){try{if(!actx)actx=new (window.AudioContext||window.webkit
 document.addEventListener('pointerdown',unlockAudio,{passive:true});
 function beep(freq=600,dur=.25){if(!S.snd)return;try{unlockAudio();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=freq;g.gain.value=.08;o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+dur)}catch(e){}}
 function flash(){const f=$('#flash');if(!f)return;f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}
-function buzz(p,force){if(!S.vib&&!force)return;if(canVib){try{navigator.vibrate(p)}catch(e){}}else if(Array.isArray(p)&&p.length>1||p>60){flash()}}
+function buzz(p,force){if(!S.vib&&!force)return;let ok=false;if(canVib){try{ok=navigator.vibrate(p)}catch(e){}}if(!ok&&(Array.isArray(p)&&p.length>1||p>60))flash()}
+document.addEventListener('pointerdown',()=>{try{canVib&&navigator.vibrate(0)}catch(e){}},{passive:true});
 let wl=null;
 async function wakeLock(on){try{if(on&&S.awake&&'wakeLock' in navigator){if(!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}else if(wl){await wl.release();wl=null}}catch(e){}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){setReveal(false)}else if(V&&V.phase!=='lobby')wakeLock(true)});
@@ -604,6 +609,20 @@ function addNote(pid,n,persist=true){
   if(persist)(G.notes[pid]=G.notes[pid]||[]).push(n);
   (G.night.stepNotes[pid]=G.night.stepNotes[pid]||[]).push(n);
 }
+function stepDone(){
+  const N=G.night,r=N.role,cl=G.mode==='classic';
+  const actors=G.players.filter(p=>p.orig===r&&p.on&&(!cl||p.alive));
+  if(!actors.length)return false;
+  if(cl)return r==='wolf'?actors.every(p=>N.wolfVotes[p.id]):actors.every(p=>N.acted[p.id]);
+  const wolves=G.players.filter(x=>x.orig==='wolf').length;
+  if(['seer','robber','troublemaker','drunk'].includes(r)||(r==='wolf'&&wolves===1))return actors.every(p=>N.acted[p.id]);
+  return false;
+}
+function maybeFinishStep(){
+  const N=G.night;if(!N||G.phase!=='night'||N.closing||!stepDone())return;
+  N.closing=true;const ms=sp(5000);
+  if(N.endsAt-Date.now()>ms){N.endsAt=Date.now()+ms;setTimer(nextStep,ms+sp(500))}
+}
 function nextStep(){
   if(!G||G.phase!=='night')return;
   const N=G.night;N.idx++;
@@ -612,7 +631,7 @@ function nextStep(){
     return;
   }
   const cl=G.mode==='classic';
-  const r=N.role=N.order[N.idx];N.acted={};N.stepNotes={};N.endsAt=Date.now()+dur(r);
+  const r=N.role=N.order[N.idx];N.acted={};N.stepNotes={};N.closing=false;N.endsAt=Date.now()+dur(r);
   const actors=G.players.filter(p=>p.orig===r&&(!cl||p.alive));
   if(r==='wolf'){actors.forEach(p=>addNote(p.id,actors.length>1?{k:'wolves',ids:actors.map(x=>x.id)}:{k:'wolfAlone'},!cl))}
   if(r==='minion'){const w=G.players.filter(p=>p.orig==='wolf').map(p=>p.id);actors.forEach(p=>addNote(p.id,w.length?{k:'minion',ids:w}:{k:'minionNone'}))}
@@ -626,7 +645,7 @@ function nightAct(p,m){
   if(G.mode==='classic')return classicAct(p,m);
   if(N.acted[p.id])return;
   const r=N.role,byId=id=>G.players.find(x=>x.id===id),ci=i=>Number.isInteger(i)&&i>=0&&i<3;
-  if(m.skip&&['wolf','robber','troublemaker'].includes(r)){addNote(p.id,{k:'skip'});N.acted[p.id]=1;return}
+  if(m.skip&&['wolf','robber','troublemaker'].includes(r)){addNote(p.id,{k:'skip'});N.acted[p.id]=1;maybeFinishStep();return}
   if(r==='wolf'){
     if(G.players.filter(x=>x.orig==='wolf').length!==1||!ci(m.i))return;
     addNote(p.id,{k:'center',i:m.i,role:G.center[m.i]});
@@ -644,19 +663,19 @@ function nightAct(p,m){
   }else if(r==='drunk'){
     if(!ci(m.i))return;[p.cur,G.center[m.i]]=[G.center[m.i],p.cur];addNote(p.id,{k:'drunk',i:m.i});
   }else return;
-  N.acted[p.id]=1;
+  N.acted[p.id]=1;maybeFinishStep();
 }
 /* ---- classic mode ---- */
 function classicAct(p,m){
   const N=G.night,r=N.role;
   if(!p.alive)return;
   const q=G.players.find(x=>x.id===m.target);if(!q||!q.alive)return;
-  if(r==='wolf'){if(q.orig==='wolf'||q===p)return;N.wolfVotes[p.id]=q.id;return}
+  if(r==='wolf'){if(q.orig==='wolf'||q===p)return;N.wolfVotes[p.id]=q.id;maybeFinishStep();return}
   if(N.acted[p.id])return;
   if(r==='healer'){N.heal=q.id;addNote(p.id,{k:'healed',id:q.id})}
   else if(r==='seer'){if(q===p)return;addNote(p.id,{k:'seerW',id:q.id,wolf:q.orig==='wolf'})}
   else return;
-  N.acted[p.id]=1;
+  N.acted[p.id]=1;maybeFinishStep();
 }
 function kill(id,cause){
   const p=G.players.find(x=>x.id===id);if(!p||!p.alive)return;
@@ -783,7 +802,7 @@ function effects(a,b){
   const key=v=>!v?'':v.phase==='night'?'n'+v.night.step+(v.night.active?'a':'s'):v.phase==='vote'?'vote'+(v.vote&&v.vote.runoff?'r':''):v.phase;
   if(key(a)===key(b))return;
   if(b.phase==='day'){buzz([500,100,500]);beep(440,.4)}
-  else if(b.phase==='night'&&b.night.active){buzz(b.night.role==='wolf'?[400,120,400,120,900]:[260,120,260]);beep(b.night.role==='wolf'?330:660,.3)}
+  else if(b.phase==='night'&&b.night.active){buzz(b.night.role==='wolf'?[700,200,700,200,1200]:[600,200,600]);beep(b.night.role==='wolf'?330:660,.3)}
   else if(a&&a.phase==='night'&&a.night.active){buzz([140])}
   else if(b.phase==='shot'&&b.shot.id===b.you){buzz([300,100,300,100,700]);beep(300,.5)}
   else if(b.phase==='vote'||b.phase==='verdict'){buzz(b.vote&&b.vote.runoff?[200,80,200,80,200]:[120,60,120])}
@@ -887,6 +906,7 @@ function rolesHTML(){
   const r=V.role,rd=ui.reveal,ready=V.players.filter(p=>p.ready).length,me=V.players.find(p=>p.id===V.you),hostMe=V.host===V.you;
   return `<h2 style="margin-top:40px">${t('yourRole')}</h2>${cantor('roles')}${roleCard(r,rd)}${rulesBlock(r,rd)}
   <p class="center mut" style="font-size:15px">${ic('eye-off')} ${t('secret')}</p>
+  <button class="link" data-a="testvib">${t('testVibRoles')}</button>${canVib?'':`<p class="center mut" style="font-size:14px">${t('noVib')}</p>`}
   <label>${t('yourName')}</label><input id="roleName" maxlength="14" autocomplete="off" value="${esc(ui.name)}">
   <div class="grow"></div>
   <button class="btn" data-a="ready" ${me&&me.ready?'disabled':''}>${me&&me.ready?t('waitingOthers',ready,V.players.length):ic('check')+' '+t('imReady')}</button>
@@ -922,7 +942,7 @@ function nightHTML(){
     h+=`<p class="center">${p}</p>${body}<button class="btn" data-a="confirm" ${ui.sel.length===need?'':'disabled'}>${t('confirm')}</button>`;
     if(!cl&&r!=='seer'&&r!=='drunk')h+=`<button class="btn sec small" data-a="skip">${t('skip')}</button>`;
   }
-  h+=`<p class="center mut" style="font-size:15px;margin-top:16px">${t('closeSoon')}</p></div>`;
+  h+=`<p class="center mut" style="font-size:15px;margin-top:16px">${t('closeSoon')}</p><div class="closing" id="closing" data-end="${V.at+N.remaining}" hidden><div><p>${t('closeNow')}</p><div class="cl-num">5</div></div></div></div>`;
   return h;
 }
 function rolesInPlay(){
@@ -1020,7 +1040,18 @@ function render(){
   if(fid){const n=document.getElementById(fid);if(n&&n.tagName==='INPUT'){n.focus();try{n.setSelectionRange(ss,ss)}catch(e){}}}
   ui.drop=null;tick();
 }
-function tick(){document.querySelectorAll('[data-cd]').forEach(e=>{e.textContent=fmt(+e.dataset.cd-Date.now())})}
+function tick(){
+  document.querySelectorAll('[data-cd]').forEach(e=>{e.textContent=fmt(+e.dataset.cd-Date.now())});
+  const c=document.getElementById('closing');
+  if(c){
+    const left=+c.dataset.end-Date.now();
+    if(left<=5000*SPEED&&left>-300){
+      c.hidden=false;const n=Math.max(1,Math.ceil(left/(1000*SPEED))),b=c.querySelector('.cl-num');
+      if(b.textContent!=n)b.textContent=n;
+      if(ui.lastN!==n){ui.lastN=n;buzz(80);beep(520,.1)}
+    }else{c.hidden=true;ui.lastN=null}
+  }
+}
 setInterval(tick,250);
 
 /* ================= events ================= */
