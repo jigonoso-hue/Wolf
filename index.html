@@ -112,6 +112,7 @@ h1{letter-spacing:5px}h2{font-size:24px}
 .deco{display:flex;justify-content:center;gap:18px;color:var(--mut);opacity:.75;margin:8px 0 12px}.deco .ic{width:30px;height:30px}
 .sleep .cacti{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;align-items:flex-end;color:#17122a;pointer-events:none}
 .dead-note{background:#3a1220;border-color:var(--red)}
+.lastcall{background:var(--acc);color:#1b1200;font-weight:800;text-align:center;border-radius:14px;padding:12px;margin:8px 0;animation:pulse 1s infinite}
 .tabs button:disabled{opacity:.6}
 .logo{display:flex;justify-content:center;color:var(--acc)}.logo .ic{width:84px;height:84px}
 h1{margin-top:4px}
@@ -196,17 +197,17 @@ yourCard:'Your original card',readyVote:'Ready to vote',waitingReady:'Waiting…
 roundN:'Day {0}',graveyard:'Graveyard',dawnNobody:'The night passed quietly. Nobody died.',
 dawnWolves:'{0} was found dead at dawn. They were: {1}',dawnShot:"{0} fell to the Charro's last bullet. They were: {1}",
 youDead:'You are out. Watch quietly – no talking, no hints!',deadVote:'You can no longer vote.',
-voteTitle:'Town meeting – vote!',voteText:'Pick who to eliminate. The most votes goes. You cannot vote for yourself.',voteFor:'Vote for {0}',
+runoff:'Tie! Runoff vote: only {0} can be voted for.',lastVoter:'You are the LAST one to vote – everybody is waiting for you!',lastWolf:'You are the LAST wolf to vote – your pack is waiting for you!',voteTitle:'Town meeting – vote!',voteText:'Pick who to eliminate. The most votes goes. You cannot vote for yourself.',voteFor:'Vote for {0}',
 voted:'Vote locked in. Waiting for the others… ({0}/{1})',
-verdictTitle:'The ranch has spoken',verdictOut:'{0} is eliminated. They were: {1}',verdictNone:'No clear majority – nobody is eliminated.',
+verdictTitle:'The ranch has spoken',verdictOut:'{0} is eliminated. They were: {1}',verdictNone:'Still tied after the runoff – nobody is eliminated.',
 shotTitle:"The Charro's last shot",shotYou:'You are going down… but not alone! Pick who goes with you.',shotWait:'The Charro is drawing a last shot…',shootBtn:'Shoot {0}',
 dawn:'Dawn…',youWon:'You win!',youLost:'You lose',noDeath:'Nobody was eliminated.',died:'Eliminated',
 hunterShot:'{0} the Charro takes down {1}!',votesN:'{0} votes',alive:'alive',dead:'dead',
 win_village:'The Ranch wins',win_wolf:'The Wolves win',win_tanner:'The Lost Soul wins',
 center:'Center cards',playAgain:'Ride again',waitAgain:'Waiting for the host…',
 howTitle:'How to play',howClassic:'Classic mode',howOne:'One Night mode',
-howC:['Everyone secretly gets a role. Some are wolves hiding among the ranch folk.','Each night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes and tells you. The wolves vote on a victim, the Curandera may protect someone, the Adivina checks a suspect.','At dawn, the ranch learns who died. Then everyone talks, accuses and bluffs.','Everyone votes. The player with the most votes is eliminated, and their role is revealed.','The <b>ranch folk</b> win when every wolf is gone. The <b>wolves</b> win when they equal the ranch folk.'],
-howO:['Everyone gets a role card and 3 more lie face-down in the middle.','At night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes. Some roles swap cards, so you may end up as something else!','Nobody dies at night. Talk it out, then everyone votes once.','The <b>ranch folk</b> win if a wolf is eliminated. The <b>wolves</b> win if not. The <b>Lost Soul</b> wins only by dying.'],
+howC:['Everyone secretly gets a role. Some are wolves hiding among the ranch folk.','Each night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes and tells you. The wolves vote on a victim, the Curandera may protect someone, the Adivina checks a suspect.','At dawn, the ranch learns who died. Then everyone talks, accuses and bluffs.','Everyone votes. The player with the most votes is eliminated and their role is revealed. A tie triggers a runoff: only the tied players can be voted for.','The <b>ranch folk</b> win when every wolf is gone. The <b>wolves</b> win when they equal the ranch folk.'],
+howO:['Everyone gets a role card and 3 more lie face-down in the middle.','At night, <b>only the players whose turn it is</b> open their eyes: your phone buzzes. Some roles swap cards, so you may end up as something else!','Nobody dies at night. Talk it out, then everyone votes. A tie means a runoff between the tied players.','The <b>ranch folk</b> win if a wolf is eliminated. The <b>wolves</b> win if not. The <b>Lost Soul</b> wins only by dying.'],
 role_wolf:'Lobo',role_minion:'Compadre',role_seer:'Adivina',role_healer:'Curandera',role_robber:'Bandido',role_troublemaker:'Chismoso',role_drunk:'Borracho',role_insomniac:'Desvelado',role_hunter:'Charro',role_tanner:'Alma en Pena',role_villager:'Ranchero',
 rule_wolf:'At night you wake up and see the other wolves. A lone wolf may secretly peek at one center card. Blend in with the ranch folk by day!',
 rule_wolf_c:'Every night the wolves wake up, see each other and vote on who to devour. By day, act like honest ranch folk.',
@@ -279,17 +280,17 @@ yourCard:'Tu carta original',readyVote:'Listo para votar',waitingReady:'Esperand
 roundN:'Día {0}',graveyard:'Panteón',dawnNobody:'La noche pasó tranquila. Nadie murió.',
 dawnWolves:'{0} amaneció muerto. Era: {1}',dawnShot:'{0} cayó con la última bala del Charro. Era: {1}',
 youDead:'Estás fuera. Mira en silencio – ¡sin hablar ni dar pistas!',deadVote:'Ya no puedes votar.',
-voteTitle:'Junta en la plaza – ¡vota!',voteText:'Elige a quién eliminar. El más votado se va. No puedes votarte a ti mismo.',voteFor:'Votar a {0}',
+runoff:'¡Empate! Segunda vuelta: solo se puede votar a {0}.',lastVoter:'¡Eres el ÚLTIMO en votar – todos te están esperando!',lastWolf:'¡Eres el ÚLTIMO lobo en votar – tu manada te espera!',voteTitle:'Junta en la plaza – ¡vota!',voteText:'Elige a quién eliminar. El más votado se va. No puedes votarte a ti mismo.',voteFor:'Votar a {0}',
 voted:'Voto registrado. Esperando a los demás… ({0}/{1})',
-verdictTitle:'El rancho ha hablado',verdictOut:'{0} queda eliminado. Era: {1}',verdictNone:'Sin mayoría clara – nadie es eliminado.',
+verdictTitle:'El rancho ha hablado',verdictOut:'{0} queda eliminado. Era: {1}',verdictNone:'Sigue el empate tras la segunda vuelta – nadie es eliminado.',
 shotTitle:'El último tiro del Charro',shotYou:'Te vas… ¡pero no solo! Elige quién se va contigo.',shotWait:'El Charro está sacando un último tiro…',shootBtn:'Disparar a {0}',
 dawn:'Amanece…',youWon:'¡Ganas!',youLost:'Pierdes',noDeath:'Nadie fue eliminado.',died:'Eliminado',
 hunterShot:'¡{0} el Charro se lleva a {1}!',votesN:'{0} votos',alive:'vivo',dead:'muerto',
 win_village:'Gana el Rancho',win_wolf:'Ganan los Lobos',win_tanner:'Gana el Alma Perdida',
 center:'Cartas del centro',playAgain:'Otra vez',waitAgain:'Esperando al anfitrión…',
 howTitle:'Cómo jugar',howClassic:'Modo Clásico',howOne:'Modo Una Noche',
-howC:['Todos reciben un rol en secreto. Algunos son lobos escondidos entre la gente del rancho.','Cada noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra y te avisa. Los lobos votan a su víctima, la Curandera puede proteger a alguien y la Adivina revisa a un sospechoso.','Al amanecer, el rancho sabe quién murió. Luego todos platican, acusan y mienten.','Todos votan. El más votado es eliminado y se revela su rol.','La <b>gente del rancho</b> gana cuando no queda ningún lobo. Los <b>lobos</b> ganan cuando igualan a la gente del rancho.'],
-howO:['Todos reciben una carta de rol y otras 3 quedan boca abajo en el centro.','De noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra. Algunos roles intercambian cartas, ¡así que puedes terminar siendo otra cosa!','Nadie muere de noche. Platiquen y luego todos votan una sola vez.','La <b>gente del rancho</b> gana si se elimina a un lobo. Los <b>lobos</b> ganan si no. El <b>Alma Perdida</b> solo gana si muere.'],
+howC:['Todos reciben un rol en secreto. Algunos son lobos escondidos entre la gente del rancho.','Cada noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra y te avisa. Los lobos votan a su víctima, la Curandera puede proteger a alguien y la Adivina revisa a un sospechoso.','Al amanecer, el rancho sabe quién murió. Luego todos platican, acusan y mienten.','Todos votan. El más votado es eliminado y se revela su rol. Si hay empate, hay segunda vuelta: solo se puede votar a los empatados.','La <b>gente del rancho</b> gana cuando no queda ningún lobo. Los <b>lobos</b> ganan cuando igualan a la gente del rancho.'],
+howO:['Todos reciben una carta de rol y otras 3 quedan boca abajo en el centro.','De noche, <b>solo los jugadores a quienes les toca</b> abren los ojos: tu teléfono vibra. Algunos roles intercambian cartas, ¡así que puedes terminar siendo otra cosa!','Nadie muere de noche. Platiquen y luego todos votan. Si hay empate, segunda vuelta entre los empatados.','La <b>gente del rancho</b> gana si se elimina a un lobo. Los <b>lobos</b> ganan si no. El <b>Alma Perdida</b> solo gana si muere.'],
 role_wolf:'Lobo',role_minion:'Compadre',role_seer:'Adivina',role_healer:'Curandera',role_robber:'Bandido',role_troublemaker:'Chismoso',role_drunk:'Borracho',role_insomniac:'Desvelado',role_hunter:'Charro',role_tanner:'Alma en Pena',role_villager:'Ranchero',
 rule_wolf:'De noche despiertas y ves a los otros lobos. Un lobo solitario puede mirar en secreto una carta del centro. ¡Disimula de día entre la gente del rancho!',
 rule_wolf_c:'Cada noche los lobos despiertan, se ven y votan a quién devorar. De día, haz como que eres gente honrada del rancho.',
@@ -450,7 +451,7 @@ function viewFor(pid){
     }
   }
   if(G.phase==='day'){v.remaining=left(G.day.endsAt);v.dawn=G.dawn}
-  if(G.phase==='vote'){v.remaining=left(G.vote.endsAt);v.myVote=me.vote}
+  if(G.phase==='vote'){v.remaining=left(G.vote.endsAt);v.myVote=me.vote;v.vote={cands:G.vote.cands,runoff:G.vote.runoff}}
   if(G.phase==='verdict'){v.remaining=left(G.verdict.endsAt);v.verdict=G.verdict}
   if(G.phase==='shot'){v.remaining=left(G.shot.endsAt);v.shot={id:G.shot.id}}
   if(G.phase==='result')v.result=G.result;
@@ -499,7 +500,7 @@ function hostRecv(c,m){
     case 'force':if(isH){if(G.phase==='roles')startNight();else if(G.phase==='day')startVote();else if(G.phase==='vote')resolveVote()}break;
     case 'act':nightAct(p,m);break;
     case 'vote':{const q=G.players.find(x=>x.id===m.target);
-      if(G.phase==='vote'&&p.alive&&q&&q.alive&&m.target!==pid&&p.vote==null)p.vote=m.target;break}
+      if(G.phase==='vote'&&p.alive&&q&&q.alive&&m.target!==pid&&p.vote==null&&(!G.vote.cands||G.vote.cands.includes(m.target)))p.vote=m.target;break}
     case 'shot':if(G.phase==='shot'&&G.shot.id===pid)resolveShot(m.target);break;
     case 'again':if(isH&&G.phase==='result')resetToLobby();break;
     case 'leave':
@@ -620,10 +621,15 @@ function resolveShot(target){
   if(q&&q.alive&&q.id!==s.id)kill(q.id,'shot');
   settle(s.next);
 }
+function startRunoff(cands){
+  G.vote={endsAt:Date.now()+90000,cands,runoff:true};G.players.forEach(p=>p.vote=null);
+  setTimer(resolveVote,90000);hostBroadcast();
+}
 function resolveVoteClassic(){
   const tally={},votes={};
   G.players.filter(p=>p.alive).forEach(p=>{if(p.vote){votes[p.id]=p.vote;tally[p.vote]=(tally[p.vote]||0)+1}});
   const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(k=>tally[k]===max);
+  if(top.length>1&&max>=1&&!G.vote.runoff)return startRunoff(top);
   const out=max>=1&&top.length===1?top[0]:null;
   const role=out?G.players.find(p=>p.id===out).orig:null;
   if(out)kill(out,'vote');
@@ -638,7 +644,7 @@ function startDay(){
 }
 function startVote(){
   if(G.phase!=='day')return;
-  G.phase='vote';G.vote={endsAt:Date.now()+90000};G.players.forEach(p=>p.vote=null);
+  G.phase='vote';G.vote={endsAt:Date.now()+90000,cands:null,runoff:false};G.players.forEach(p=>p.vote=null);
   setTimer(resolveVote,90000);hostBroadcast();
 }
 function resolveVote(){
@@ -646,8 +652,9 @@ function resolveVote(){
   if(G.mode==='classic')return resolveVoteClassic();
   const tally={},votes={};
   G.players.forEach(p=>{if(p.vote){votes[p.id]=p.vote;tally[p.vote]=(tally[p.vote]||0)+1}});
-  const max=Math.max(0,...Object.values(tally));
-  const dead=new Set(max>=2?Object.keys(tally).filter(k=>tally[k]===max):[]);
+  const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(k=>tally[k]===max);
+  if(top.length>1&&max>=1&&!G.vote.runoff)return startRunoff(top);
+  const dead=new Set(max>=2||(G.vote.runoff&&max>=1)?top:[]);
   const hunter=[];let grew=true;
   while(grew){grew=false;
     for(const id of [...dead]){const p=G.players.find(x=>x.id===id);
@@ -683,20 +690,30 @@ function checkProgress(){
 /* ================= client: view handling & effects ================= */
 function onView(v){
   const prev=V;v.at=Date.now();V=v;ui.screen='game';
-  if(!prev||prev.phase!==v.phase||(v.night&&prev.night&&v.night.step!==prev.night.step)){ui.sel=[];ui.seerTab='p'}
+  if(!prev||prev.phase!==v.phase||(v.night&&prev.night&&v.night.step!==prev.night.step)||(v.vote&&prev.vote&&v.vote.runoff!==prev.vote.runoff)){ui.sel=[];ui.seerTab='p'}
   if(!prev||prev.phase!==v.phase)ui.reveal=false;
   effects(prev,v);
   wakeLock(v.phase!=='lobby');
   render();
 }
+const lastOf=v=>{
+  if(!v||!v.alive)return '';
+  if(v.phase==='vote'&&!v.myVote){const act=v.players.filter(p=>p.on&&p.alive),pend=act.filter(p=>!p.voted);
+    return act.length>1&&pend.length===1&&pend[0].id===v.you?'vote'+(v.vote&&v.vote.runoff?'r':''):''}
+  if(v.phase==='night'&&v.night.active&&v.night.wolves&&v.night.wolves.length>1&&!v.night.myVote){
+    const pend=v.night.wolves.filter(id=>!v.night.wolfVotes[id]);return pend.length===1&&pend[0]===v.you?'wolf'+v.night.step:''}
+  return '';
+};
+const lastBanner=()=>{const k=lastOf(V);return k?`<div class="lastcall">${t(k==='vote'||k==='voter'||k.startsWith('vote')?'lastVoter':'lastWolf')}</div>`:''};
 function effects(a,b){
-  const key=v=>!v?'':v.phase==='night'?'n'+v.night.step+(v.night.active?'a':'s'):v.phase;
+  if(lastOf(b)&&lastOf(a)!==lastOf(b)){buzz([250,100,250,100,250,100,600]);beep(520,.35)}
+  const key=v=>!v?'':v.phase==='night'?'n'+v.night.step+(v.night.active?'a':'s'):v.phase==='vote'?'vote'+(v.vote&&v.vote.runoff?'r':''):v.phase;
   if(key(a)===key(b))return;
   if(b.phase==='day'){buzz([500,100,500]);beep(440,.4)}
   else if(b.phase==='night'&&b.night.active){buzz(b.night.role==='wolf'?[400,120,400,120,900]:[260,120,260]);beep(b.night.role==='wolf'?330:660,.3)}
   else if(a&&a.phase==='night'&&a.night.active){buzz([140])}
   else if(b.phase==='shot'&&b.shot.id===b.you){buzz([300,100,300,100,700]);beep(300,.5)}
-  else if(b.phase==='vote'||b.phase==='verdict'){buzz([120,60,120])}
+  else if(b.phase==='vote'||b.phase==='verdict'){buzz(b.vote&&b.vote.runoff?[200,80,200,80,200]:[120,60,120])}
   else if(b.phase==='result'){buzz([100,60,100,60,400]);beep(520,.5)}
   else if(b.phase==='roles'){buzz([90])}
 }
@@ -800,7 +817,7 @@ function nightHTML(){
     let need=1,body='',p='';
     if(cl){
       if(r==='wolf'){
-        p=t('p_wolfC');
+        p=lastBanner()+t('p_wolfC');
         const targets=others.filter(x=>x.alive&&!N.wolves.includes(x.id));
         const mark=x=>`<button class="pick ${ui.sel.includes(x.id)||(!ui.sel.length&&N.myVote===x.id)?'sel':''}" data-a="pick" data-v="${x.id}">${esc(x.name)}</button>`;
         body=`<div class="grid">${targets.map(mark).join('')}</div>
@@ -845,13 +862,15 @@ function dayHTML(){
   ${hostMe?`<button class="btn sec small" data-a="force">${t('voteNow')}</button>`:''}`;
 }
 function voteHTML(){
+  const cands=V.vote&&V.vote.cands;
+  const ro=cands?`<div class="note dead-note" style="text-align:center">${t('runoff',cands.map(pname).join(' / '))}</div>`:'';
   const act=V.players.filter(p=>p.on&&p.alive),voted=act.filter(p=>p.voted).length;
   const hostBtn=V.host===V.you?`<button class="btn sec small" data-a="force">${t('voteNow')}</button>`:'';
-  if(!V.alive)return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>${cd()}<div class="err">${t('youDead')} ${t('deadVote')}</div><div class="grow"></div>${hostBtn}`;
-  if(V.myVote)return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>${cd()}<div class="card center" style="margin-top:20px"><p style="font-size:22px">${ic('check')} ${pname(V.myVote)}</p><p class="mut">${t('voted',voted,act.length)}</p></div><div class="grow"></div>${hostBtn}`;
+  if(!V.alive)return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>${ro}${cd()}<div class="err">${t('youDead')} ${t('deadVote')}</div><div class="grow"></div>${hostBtn}`;
+  if(V.myVote)return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>${ro}${cd()}<div class="card center" style="margin-top:20px"><p style="font-size:22px">${ic('check')} ${pname(V.myVote)}</p><p class="mut">${t('voted',voted,act.length)}</p></div><div class="grow"></div>${hostBtn}`;
   const sel=ui.sel[0];
-  return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2><p class="center mut">${t('voteText')}</p>${cd()}
-  <div class="grid">${V.players.filter(p=>p.id!==V.you&&p.alive).map(p=>`<button class="pick ${sel===p.id?'sel':''}" data-a="pick" data-v="${p.id}">${esc(p.name)}</button>`).join('')}</div>
+  return `<h2 style="margin-top:40px">${ic('vote')} ${t('voteTitle')}</h2>${ro}${lastBanner()}<p class="center mut">${t('voteText')}</p>${cd()}
+  <div class="grid">${V.players.filter(p=>p.id!==V.you&&p.alive&&(!cands||cands.includes(p.id))).map(p=>`<button class="pick ${sel===p.id?'sel':''}" data-a="pick" data-v="${p.id}">${esc(p.name)}</button>`).join('')}</div>
   <div class="grow"></div><button class="btn red" data-a="castvote" ${sel?'':'disabled'}>${sel?t('voteFor',pname(sel)):t('voteTitle')}</button>`;
 }
 function verdictHTML(){
