@@ -14,3 +14,4 @@ A mobile-first, multiplayer social-deduction card game (One Night Werewolf style
 - Role icons (werewolf, domino-mask, crystal-ball, robber, tornado, beer-stein, barn-owl, archer, broken-skull, farmer, card-random): [Game-icons.net](https://game-icons.net) by Lorc, Delapouite and contributors, licensed [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Fetched through the `@iconify-json/game-icons` package.
 - Interface icons (settings, eye, vote, share, crown, etc.): [Lucide](https://lucide.dev), ISC license. Fetched through `@iconify-json/lucide`.
 - All icons are inlined as SVG in `index.html` and recolored with `currentColor`.
+- Rooster crow at dawn: "Medium rooster crowing" from Wikimedia Commons (public domain), trimmed and converted to MP3, embedded in `index.html`.
