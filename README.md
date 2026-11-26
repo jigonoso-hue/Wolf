@@ -15,3 +15,4 @@ A mobile-first, multiplayer social-deduction card game (One Night Werewolf style
 - Interface icons (settings, eye, vote, share, crown, etc.): [Lucide](https://lucide.dev), ISC license. Fetched through `@iconify-json/lucide`.
 - All icons are inlined as SVG in `index.html` and recolored with `currentColor`.
 - Rooster crow at dawn: "Medium rooster crowing" from Wikimedia Commons (public domain), trimmed and converted to MP3, embedded in `index.html`.
+- Wolf howl ("Wolf howls") and gunshots ("Gunshots 8") from Wikimedia Commons (public domain), trimmed and embedded. The howl plays only on the phone of the player the wolves killed; the gunshots play on the phone of the player voted out and on the Charro's last shot (the Charro and their victim).
