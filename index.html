@@ -418,7 +418,7 @@ const detectLang=()=>/^es/i.test(navigator.language||'')?'es':'en';
 /* ================= game constants ================= */
 const ROLES={wolf:{i:'werewolf'},minion:{i:'domino-mask'},seer:{i:'crystal-ball'},healer:{i:'herbs-bundle'},robber:{i:'robber'},troublemaker:{i:'chat-bubble'},drunk:{i:'agave'},insomniac:{i:'barn-owl'},hunter:{i:'revolver'},tanner:{i:'candle-skull'},villager:{i:'farmer'}};
 const ri=(r,s)=>ic(ROLES[r].i,s);
-const ROLE_SORT=['wolf','minion','seer','healer','robber','troublemaker','drunk','insomniac','hunter','tanner','villager'];
+const ROLE_SORT=['wolf','minion','seer','healer','hunter','tanner','villager'];
 const NIGHT_ORDER=['wolf','minion','seer','robber','troublemaker','drunk','insomniac'];
 const DECK_ORDER=['wolf','seer','robber','troublemaker','villager','wolf','drunk','insomniac','minion','villager','tanner','hunter','villager'];
 const SPEED=/[?&]fast/.test(location.search)?0.2:1;
@@ -919,9 +919,8 @@ function screenHTML(){
   if(ui.screen==='lang')return `<div class="grow"></div>${logo().replace(t('title'),'WOLF · LOBO')}${deco()}<p class="center mut">Choose your language · Elige tu idioma</p><div style="height:20px"></div>
     <button class="btn" data-a="lang" data-v="en">English</button><button class="btn" data-a="lang" data-v="es">Español</button><div class="grow"></div>`;
   if(ui.screen==='howto')return `<h2>${t('howTitle')}</h2>
-    <h3>${t('howClassic')}</h3><div class="card"><ol class="how">${t('howC').map(x=>`<li>${x}</li>`).join('')}</ol></div>
-    <h3>${t('howOne')}</h3><div class="card"><ol class="how">${t('howO').map(x=>`<li>${x}</li>`).join('')}</ol></div>
-    <h3>${t('rolesInPlay')}</h3>${ROLE_SORT.map(r=>`<div class="card howrole r-${r}"><div class="hr-art">${ri(r)}</div><div><b>${esc(cap(r))}</b> <span class="tag">${t('team_'+teamOf(r))}</span><div class="mut" style="font-size:16px">${rt('rule_',r,'one')}</div></div></div>`).join('')}
+    <div class="card"><ol class="how">${t('howC').map(x=>`<li>${x}</li>`).join('')}</ol></div>
+    <h3>${t('rolesInPlay')}</h3>${ROLE_SORT.map(r=>`<div class="card howrole r-${r}"><div class="hr-art">${ri(r)}</div><div><b>${esc(cap(r))}</b> <span class="tag">${t('team_'+teamOf(r))}</span><div class="mut" style="font-size:16px">${rt('rule_',r,'classic')}</div></div></div>`).join('')}
     <button class="btn sec" data-a="${ui.howBack==='game'?'closehow':'home'}">${t('back')}</button>`;
   if(ui.screen==='home')return `<div class="grow"></div>${logo()}<p class="center mut" style="margin-top:2px">${t('sub')}</p>${deco()}
     ${ui.error?`<div class="err">${esc(ui.error)}</div>`:''}
@@ -946,7 +945,7 @@ function cfgHTML(hostMe){
   const tog=r=>{const on=c.on[r],inner=`${ri(r)} ${esc(cap(r))}`;return hostMe?`<button class="rt ${on?'':'off'}" data-a="roletog" data-v="${r}">${inner}</button>`:`<span class="rt ${on?'':'off'}">${inner}</span>`};
   const cnt={};c.deck.forEach(r=>cnt[r]=(cnt[r]||0)+1);
   return `<h3>${t('wolvesN')}</h3>`+(hostMe?`<div class="stepper"><button data-a="wolfdec" ${c.wolves<=1?'disabled':''}>&minus;</button><b>${c.wolves}</b><button data-a="wolfinc" ${c.wolves>=c.cap?'disabled':''}>+</button><button class="auto ${c.wolvesAuto?'on':''}" data-a="wolfauto">${t('auto')}</button></div>`:`<p style="font-size:22px;margin:4px 0"><b>${c.wolves}</b> ${c.wolvesAuto?`<span class="mut">(${t('auto')})</span>`:''}</p>`)
-   +`<h3>${t('rolesOpt')}</h3>${hostMe?`<p class="mut" style="font-size:14px;margin:0 0 8px">${t('tapRoleHint')}</p>`:''}<div class="chips">${c.pool.map(tog).join('')}<span class="rt fixed">${ri('villager')} ${esc(cap('villager'))} <small>${t('fillsRest')}</small></span>${ROLE_SORT.filter(r=>r!=='wolf'&&r!=='villager'&&!c.pool.includes(r)).map(r=>`<span class="rt na">${ri(r)} ${esc(cap(r))} <small>${t(V.mode==='classic'?'onlyOne':'onlyClassic')}</small></span>`).join('')}</div>`
+   +`<h3>${t('rolesOpt')}</h3>${hostMe?`<p class="mut" style="font-size:14px;margin:0 0 8px">${t('tapRoleHint')}</p>`:''}<div class="chips">${c.pool.map(tog).join('')}<span class="rt fixed">${ri('villager')} ${esc(cap('villager'))} <small>${t('fillsRest')}</small></span></div>`
    +`<h3>${t('inThisGame')}</h3><div class="chips">${ROLE_SORT.filter(r=>cnt[r]).map(r=>`<span class="chip">${ri(r)} ${esc(cap(r))}${cnt[r]>1?' ×'+cnt[r]:''}</span>`).join('')}</div>`;
 }
 function lobbyHTML(){
@@ -957,9 +956,7 @@ function lobbyHTML(){
   <button class="btn sec small" data-a="share">${ic('share-2')} ${t('share')}</button>
   <label>${t('yourName')}</label><input id="lobbyName" maxlength="14" autocomplete="off" value="${esc(ui.name)}">
   <h3>${t('players',n)}</h3>${pgrid(V.players,p=>({crown:p.id===V.host,you:p.id===V.you}))}
-  <label>${t('mode')}</label>
-  <div class="tabs">${['classic','one'].map(m=>`<button class="${V.mode===m?'on':''}" ${hostMe?`data-a="mode" data-v="${m}"`:'disabled'}>${t('mode_'+m)}</button>`).join('')}</div>
-  <p class="mut" style="font-size:15px;margin:4px 0">${t('modeDesc_'+V.mode)}</p>${cfgHTML(hostMe)}
+  ${cfgHTML(hostMe)}
   <div class="grow"></div>
   ${hostMe?`<label>${t('discussTime')}</label><select id="discussSel">${[2,3,5,7,10].map(m=>`<option value="${m}" ${V.discuss===m*60?'selected':''}>${t('min',m)}</option>`).join('')}</select>
   <button class="btn" data-a="start" ${n<MINP?'disabled':''}>${ic('play')} ${n<MINP?t('needMore'):t('start')}</button><p class="center mut" style="font-size:14px">${t('hostKeep')}</p>`
