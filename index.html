@@ -752,8 +752,8 @@ function startNight(){
   const order=base.filter(r=>G.deck.includes(r));
   G.phase='night';G.night={order,idx:-1,role:null,acted:{},stepNotes:{},wolfVotes:{},heal:null,endsAt:0};
   G.players.forEach(p=>{p.dayReady=false;p.vote=null});
-  G.night.endsAt=Date.now()+sp(10000);
-  setTimer(nextStep,sp(10000));hostBroadcast();
+  G.night.endsAt=Date.now()+sp(5000);
+  setTimer(nextStep,sp(5000));hostBroadcast();
 }
 function addNote(pid,n,persist=true){
   if(persist)(G.notes[pid]=G.notes[pid]||[]).push(n);
